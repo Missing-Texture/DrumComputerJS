@@ -1,8 +1,12 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { SequencerComponent } from './sequencer/sequencer.component';
 
 
-const routes: Routes = [];
+const routes: Routes = [
+  {path: '', component: SequencerComponent}
+
+];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
