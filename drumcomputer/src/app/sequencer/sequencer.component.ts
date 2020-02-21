@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import * as Tone from "tone";
 
 @Component({
   selector: 'app-sequencer',
@@ -7,17 +8,35 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SequencerComponent implements OnInit {
 
+  sound: any = new Tone.Player("assets/samples/drums/kicks/Kick011TheSpoon.mp3").toMaster();
+  
+
+  states: boolean[] = [false, false, false, false,
+    false, false, false, false,
+    false, false, false, false,
+    false, false, false, false];
+
   constructor() { }
 
   ngOnInit(): void {
+    // sets the Volume
+    this.sound.volume.value = -12;
   }
 
-  states: boolean[][] = [[false, false, false, false],
-                      [false, false, false, false],
-                      [false, false, false, false],
-                      [false, false, false, false]];
+  activateCell(i: number) {
+    this.states[i] = !this.states[i];
+  }
 
-  activateCell(i: number, j: number) {
-    this.states[i][j] = !this.states[i][j];
+  test() {
+    this.updateSequencer();
+    Tone.Transport.start();
+  }
+
+  updateSequencer() {
+    let sequence: any = new Tone.Sequence(function(time, col){
+      if(col) {
+        this.sound.start(time, 0, "16n");
+      }
+    }, this.states, "16n").start();
   }
 }
