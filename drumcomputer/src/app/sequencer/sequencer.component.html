@@ -1,4 +1,9 @@
 <div class="text-center">
+    <br>
+    <h2>Kick</h2>
+</div>
+
+<div class="text-center">
     <button (click)="activateCell(0)" class="btn btn-outline-primary" [ngClass]="{'active': states[0]}"> </button>
     <button (click)="activateCell(1)" class="btn btn-outline-primary" [ngClass]="{'active': states[1]}"> </button>
     <button (click)="activateCell(2)" class="btn btn-outline-primary" [ngClass]="{'active': states[2]}"> </button>
@@ -21,5 +26,12 @@
 </div>
 
 <div class="text-center">
+    <br>
     <button (click)="test()" class="btn btn-secondary"> </button>
+
+    <label for="bpm">BPM:</label>
+    <input class="input" type="number" name="bpm" #bpm (keyup)="changeBpm(bpm.value)" value="120">
+
+    <label for="volume">Volume:</label>
+    <input class="input" type="number" name="volume" #volume (keyup)="changeVolume(volume.value)" value="-12">
 </div>
