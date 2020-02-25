@@ -1,3 +1,14 @@
+<template #sequencerContainer></template>
 
+<footer class="footer">
+    <label for="add"> Add another Sequencer: </label>
+    <button name="add" class="btn btn-secondary" (click)="addSequencer()">+</button>
+    
+    <button class="btn btn-secondary" (click)="_sequencerService.test()">Play</button>
 
-<router-outlet></router-outlet>
+    <label for="bpm"> BPM: </label>
+    <input class="input" type="number" name="bpm" #bpm (keyup)="_sequencerService.changeBpm(bpm.value)" value="120">
+
+    <label for="volume"> Volume: </label>
+    <input class="input" type="number" name="volume" #volume (keyup)="_sequencerService.changeVolume(volume.value)" value="-12">
+</footer>

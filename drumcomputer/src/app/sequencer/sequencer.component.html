@@ -1,37 +1,28 @@
-<div class="text-center">
-    <br>
-    <h2>Kick</h2>
-</div>
+<div>
+    <div class="text-center">
+        <br>
+        <h2>Kick</h2>
+    </div>
 
-<div class="text-center">
-    <button (click)="activateCell(0)" class="btn btn-outline-primary" [ngClass]="{'active': states[0]}"> </button>
-    <button (click)="activateCell(1)" class="btn btn-outline-primary" [ngClass]="{'active': states[1]}"> </button>
-    <button (click)="activateCell(2)" class="btn btn-outline-primary" [ngClass]="{'active': states[2]}"> </button>
-    <button (click)="activateCell(3)" class="btn btn-outline-primary" [ngClass]="{'active': states[3]}"> </button>
-    <br>
-    <button (click)="activateCell(4)" class="btn btn-outline-primary" [ngClass]="{'active': states[4]}"> </button>
-    <button (click)="activateCell(5)" class="btn btn-outline-primary" [ngClass]="{'active': states[5]}"> </button>
-    <button (click)="activateCell(6)" class="btn btn-outline-primary" [ngClass]="{'active': states[6]}"> </button>
-    <button (click)="activateCell(7)" class="btn btn-outline-primary" [ngClass]="{'active': states[7]}"> </button>
-    <br>
-    <button (click)="activateCell(8)" class="btn btn-outline-primary" [ngClass]="{'active': states[8]}"> </button>
-    <button (click)="activateCell(9)" class="btn btn-outline-primary" [ngClass]="{'active': states[9]}"> </button>
-    <button (click)="activateCell(10)" class="btn btn-outline-primary" [ngClass]="{'active': states[10]}"> </button>
-    <button (click)="activateCell(11)" class="btn btn-outline-primary" [ngClass]="{'active': states[11]}"> </button>
-    <br>
-    <button (click)="activateCell(12)" class="btn btn-outline-primary" [ngClass]="{'active': states[12]}"> </button>
-    <button (click)="activateCell(13)" class="btn btn-outline-primary" [ngClass]="{'active': states[13]}"> </button>
-    <button (click)="activateCell(14)" class="btn btn-outline-primary" [ngClass]="{'active': states[14]}"> </button>
-    <button (click)="activateCell(15)" class="btn btn-outline-primary" [ngClass]="{'active': states[15]}"> </button>
-</div>
-
-<div class="text-center">
-    <br>
-    <button (click)="test()" class="btn btn-secondary"> </button>
-
-    <label for="bpm">BPM:</label>
-    <input class="input" type="number" name="bpm" #bpm (keyup)="changeBpm(bpm.value)" value="120">
-
-    <label for="volume">Volume:</label>
-    <input class="input" type="number" name="volume" #volume (keyup)="changeVolume(volume.value)" value="-12">
+    <div class="text-center">
+        <button (click)="_sequencerService.activateCell(0)" class="btn btn-outline-primary" [ngClass]="{'active': _sequencerService.states[0]}"> </button>
+        <button (click)="_sequencerService.activateCell(1)" class="btn btn-outline-primary" [ngClass]="{'active': _sequencerService.states[1]}"> </button>
+        <button (click)="_sequencerService.activateCell(2)" class="btn btn-outline-primary" [ngClass]="{'active': _sequencerService.states[2]}"> </button>
+        <button (click)="_sequencerService.activateCell(3)" class="btn btn-outline-primary" [ngClass]="{'active': _sequencerService.states[3]}"> </button>
+        <br>
+        <button (click)="_sequencerService.activateCell(4)" class="btn btn-outline-primary" [ngClass]="{'active': _sequencerService.states[4]}"> </button>
+        <button (click)="_sequencerService.activateCell(5)" class="btn btn-outline-primary" [ngClass]="{'active': _sequencerService.states[5]}"> </button>
+        <button (click)="_sequencerService.activateCell(6)" class="btn btn-outline-primary" [ngClass]="{'active': _sequencerService.states[6]}"> </button>
+        <button (click)="_sequencerService.activateCell(7)" class="btn btn-outline-primary" [ngClass]="{'active': _sequencerService.states[7]}"> </button>
+        <br>
+        <button (click)="_sequencerService.activateCell(8)" class="btn btn-outline-primary" [ngClass]="{'active': _sequencerService.states[8]}"> </button>
+        <button (click)="_sequencerService.activateCell(9)" class="btn btn-outline-primary" [ngClass]="{'active': _sequencerService.states[9]}"> </button>
+        <button (click)="_sequencerService.activateCell(10)" class="btn btn-outline-primary" [ngClass]="{'active': _sequencerService.states[10]}"> </button>
+        <button (click)="_sequencerService.activateCell(11)" class="btn btn-outline-primary" [ngClass]="{'active': _sequencerService.states[11]}"> </button>
+        <br>
+        <button (click)="_sequencerService.activateCell(12)" class="btn btn-outline-primary" [ngClass]="{'active': _sequencerService.states[12]}"> </button>
+        <button (click)="_sequencerService.activateCell(13)" class="btn btn-outline-primary" [ngClass]="{'active': _sequencerService.states[13]}"> </button>
+        <button (click)="_sequencerService.activateCell(14)" class="btn btn-outline-primary" [ngClass]="{'active': _sequencerService.states[14]}"> </button>
+        <button (click)="_sequencerService.activateCell(15)" class="btn btn-outline-primary" [ngClass]="{'active': _sequencerService.states[15]}"> </button>
+    </div>
 </div>
