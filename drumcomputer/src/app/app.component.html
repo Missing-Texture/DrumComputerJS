@@ -1,4 +1,6 @@
-<template #sequencerContainer></template>
+<div class="content">
+    <template #sequencerContainer></template>
+</div>
 
 <footer class="footer">
     <label for="add"> Add another Sequencer: </label>
@@ -11,4 +13,6 @@
 
     <label for="volume"> Volume: </label>
     <input class="input" type="number" name="volume" #volume (keyup)="_sequencerService.changeVolume(volume.value)" value="-12">
+
+    <button class="btn btn-secondary" (click)="_sequencerService.log()">Log</button>
 </footer>
