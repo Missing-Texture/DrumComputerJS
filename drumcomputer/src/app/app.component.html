@@ -12,7 +12,7 @@
     <input class="input" type="number" name="bpm" #bpm (keyup)="_sequencerService.changeBpm(bpm.value)" value="120">
 
     <label for="volume"> Volume: </label>
-    <input class="input" type="number" name="volume" #volume (keyup)="_sequencerService.changeVolume(volume.value)" value="-12">
+    <input class="input" type="number" name="volume" #volume (keyup)="_sequencerService.changeVolume(volume.value)" value="{{_sequencerService.volume}}">
 
     <button class="btn btn-secondary" (click)="_sequencerService.log()">Log</button>
 </footer>

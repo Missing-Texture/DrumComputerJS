@@ -1,6 +1,7 @@
-import { Component, ViewChild, ViewContainerRef, ComponentFactoryResolver, ComponentFactory, ComponentRef } from '@angular/core';
-import { SequencerComponent } from './sequencer/sequencer.component';
+import { Component, ViewChild, ViewContainerRef } from '@angular/core';
 import { SequencerService } from './sequencer/sequencer.service';
+import { AddSoundModalComponent } from './add-sound-modal/add-sound-modal.component'
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-root',
@@ -10,19 +11,16 @@ import { SequencerService } from './sequencer/sequencer.service';
 export class AppComponent {
   title = 'drumcomputer';
   @ViewChild("sequencerContainer", {read: ViewContainerRef}) container;
-  componentRef: ComponentRef<any>;
   idCounter:number = 0;
-
-  constructor(private resolver: ComponentFactoryResolver, private _sequencerService: SequencerService) {}
+  
+  constructor(    
+    private _sequencerService: SequencerService,
+    private modalService: NgbModal) {}
 
   addSequencer() {
-    const sequencerFactory: ComponentFactory<any> = this.resolver.resolveComponentFactory(SequencerComponent);
-    this.componentRef = this.container.createComponent(sequencerFactory);
-    this.componentRef.instance.id = this.idCounter;
+    const modalRef = this.modalService.open(AddSoundModalComponent);
+    modalRef.componentInstance.container = this.container;
+    modalRef.componentInstance.idCounter = this.idCounter;
     this.idCounter++;
-    this._sequencerService.states.push([false, false, false, false,
-      false, false, false, false,
-      false, false, false, false,
-      false, false, false, false]);
   }
 }

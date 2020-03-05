@@ -8,23 +8,10 @@ export class SequencerService {
 
   sequence: any;
   sequenceRunning: boolean = false; // Flag for Play button
-  volume: number = -12;
+  volume: number = -6;
   bpm: number = 120;
 
-  sounds: any[] = [
-    new Tone.Player({
-      "url" : "assets/samples/drums/kicks/Kick011TheSpoon.mp3",
-      //"volume" : this.volume,
-      "fadeOut" : "64n",}).toMaster(),
-    new Tone.Player({
-      "url" : "assets/samples/drums/snares/StayOnBeat.com_Snare10.mp3",
-      //"volume" : this.volume,
-      "fadeOut" : "64n",}).toMaster(),
-    new Tone.Player({
-      "url" : "assets/samples/drums/snares/StayOnBeat.com_Snare11.mp3",
-      //"volume" : this.volume,
-      "fadeOut" : "64n",}).toMaster()
-  ];
+  sounds: any[] = [];
 
   states: boolean[][] = [];
 
@@ -42,7 +29,7 @@ export class SequencerService {
       this.sequence.stop();
       Tone.Transport.stop();
       this.sequenceRunning = false;
-    }    
+    }   
   }
 
   activateCell(id: number, i: number) {
@@ -61,15 +48,12 @@ export class SequencerService {
     let state = this.states;
 
     this.sequence = new Tone.Sequence(function(time, col){
-      //console.log(col);
-      if(state[0][col]) {
-        snd[0].start(time, 0, "16n");
-      }
-      if(state[1][col]) {
-        snd[1].start(time, 0, "16n");
-      }
-      if(state[2][col]) {
-        snd[2].start(time, 0, "16n");
+
+      // iterate over every available sound, play it if needed
+      for (let i in snd) {
+        if(state[i][col]) {
+          snd[i].start(time, 0, "16n");
+        }
       }
 
       /*
