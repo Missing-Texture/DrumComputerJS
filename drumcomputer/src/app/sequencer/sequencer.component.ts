@@ -11,6 +11,7 @@ export class SequencerComponent implements OnInit {
   constructor(private _sequencerService: SequencerService) { }
 
   @Input() id: number;
+  @Input() type: string;
 
   ngOnInit(): void {
   }

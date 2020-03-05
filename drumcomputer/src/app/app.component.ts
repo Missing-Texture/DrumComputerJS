@@ -8,7 +8,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
+export class AppComponent{
   title = 'drumcomputer';
   @ViewChild("sequencerContainer", {read: ViewContainerRef}) container;
   idCounter:number = 0;

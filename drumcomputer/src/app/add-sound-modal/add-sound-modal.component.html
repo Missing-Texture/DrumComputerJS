@@ -13,13 +13,32 @@
               <a ngbNavLink>Kicks</a>
               <ng-template ngbNavContent>
                 <br>
-                <button *ngFor="let sound of kicks; let i = index" type="button"  class="btn btn-secondary preview" (click)="previewSound(i)">{{i+1}}</button>
+                <button *ngFor="let sound of kicks; let i = index" type="button"  class="btn btn-secondary preview" (click)="previewSound(0,i)">{{i+1}}</button>
               </ng-template>
             </li>
 
             <li ngbNavItem>
-              <a ngbNavLink>Second</a>
-              <ng-template ngbNavContent>Second content</ng-template>
+              <a ngbNavLink>Snares</a>
+              <ng-template ngbNavContent>
+                <br>
+                <button *ngFor="let sound of snares; let i = index" type="button"  class="btn btn-secondary preview" (click)="previewSound(1,i)">{{i+1}}</button>
+              </ng-template>
+            </li>
+
+            <li ngbNavItem>
+              <a ngbNavLink>Hihats</a>
+              <ng-template ngbNavContent>
+                <br>
+                <button *ngFor="let sound of hihats; let i = index" type="button"  class="btn btn-secondary preview" (click)="previewSound(2,i)">{{i+1}}</button>
+              </ng-template>
+            </li>
+
+            <li ngbNavItem>
+              <a ngbNavLink>Percussions</a>
+              <ng-template ngbNavContent>
+                <br>
+                <button *ngFor="let sound of percussions; let i = index" type="button"  class="btn btn-secondary preview" (click)="previewSound(3,i)">{{i+1}}</button>
+              </ng-template>
             </li>
 
           </ul>
