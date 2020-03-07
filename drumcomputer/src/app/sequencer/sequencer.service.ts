@@ -19,17 +19,25 @@ export class SequencerService {
     Tone.Master.volume.value = this.volume; // init master Volume
   }
 
-  test() {
+  switchPlaying() {
     if(!this.sequenceRunning) {
       this.updateSequencer();
-      this.sequence.start();
-      Tone.Transport.start();
-      this.sequenceRunning = true;
+      this.startPlaying();
     } else {
-      this.sequence.stop();
-      Tone.Transport.stop();
-      this.sequenceRunning = false;
+      this.stopPlaying();
     }   
+  }
+
+  startPlaying() {
+    this.sequence.start();
+    Tone.Transport.start();
+    this.sequenceRunning = true;
+  }
+
+  stopPlaying() {
+    this.sequence.stop();
+    Tone.Transport.stop();
+    this.sequenceRunning = false;
   }
 
   activateCell(id: number, i: number) {
@@ -51,7 +59,7 @@ export class SequencerService {
 
       // iterate over every available sound, play it if needed
       for (let i in snd) {
-        if(state[i][col]) {
+        if(state[i] != null && state[i][col]) {
           snd[i].start(time, 0, "16n");
         }
       }
@@ -72,6 +80,14 @@ export class SequencerService {
   changeVolume(value: number) {
     this.volume = value;
     Tone.Master.volume.value = this.volume;
+  }
+
+  changeVolumeIndividual(id: number, value: number) {
+    this.sounds[id].volume.value = value;
+  }
+
+  changeMuteIndividual(id: number) {
+    this.sounds[id].mute = !this.sounds[id].mute;
   }
 
   log() {

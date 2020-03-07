@@ -7,6 +7,7 @@ import { SequencerComponent } from './sequencer/sequencer.component';
 import { SequencerService } from './sequencer/sequencer.service';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AddSoundModalComponent } from './add-sound-modal/add-sound-modal.component';
+import { AppService } from './app.service';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,7 @@ import { AddSoundModalComponent } from './add-sound-modal/add-sound-modal.compon
     AppRoutingModule,
     NgbModule
   ],
-  providers: [SequencerService],
+  providers: [SequencerService, AppService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

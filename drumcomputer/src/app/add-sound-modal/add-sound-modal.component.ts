@@ -67,6 +67,8 @@ export class AddSoundModalComponent implements OnInit {
   componentRef: ComponentRef<any>;
   container:any;
   idCounter:number;
+
+  showWarning: boolean = false;
   
   constructor(
     private resolver: ComponentFactoryResolver, 
@@ -93,22 +95,34 @@ export class AddSoundModalComponent implements OnInit {
     }
 
     this.type = this.types[category];
+    this.showWarning = false;
 
-    Tone.Transport.start();
-    this.selected.start();
-    Tone.Transport.stop();
+    // start Transport if not already running
+    if(Tone.Transport.state == 'stopped') {
+      Tone.Transport.start();
+      this.selected.start();
+      Tone.Transport.stop();
+    } else {
+      this.selected.start();
+    }
   }
 
   continue() {
-    const sequencerFactory: ComponentFactory<any> = this.resolver.resolveComponentFactory(SequencerComponent);
-    this.componentRef = this.container.createComponent(sequencerFactory);
-    this.componentRef.instance.id = this.idCounter;
-    this.componentRef.instance.type = this.type;
-    this._sequencerService.states.push([false, false, false, false,
-      false, false, false, false,
-      false, false, false, false,
-      false, false, false, false]);
-    this._sequencerService.sounds.push(this.selected);
-    this.activeModal.close('Close click');
+    if (this.selected == undefined) {
+      this.showWarning = true;
+    } else {
+      const sequencerFactory: ComponentFactory<any> = this.resolver.resolveComponentFactory(SequencerComponent);
+      this.componentRef = this.container.createComponent(sequencerFactory);
+      this.componentRef.instance.id = this.idCounter;
+      this.componentRef.instance.type = this.type;
+      this.componentRef.instance.parentContainerRef = this.container;
+      this._sequencerService.states.push([
+        false, false, false, false,
+        false, false, false, false,
+        false, false, false, false,
+        false, false, false, false]);
+      this._sequencerService.sounds.push(this.selected);
+      this.activeModal.close('continue');
+    }
   }
 }

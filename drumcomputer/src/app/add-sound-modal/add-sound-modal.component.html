@@ -46,7 +46,7 @@
     </div>
 
     <div class="modal-footer">
-        <p class="selected">Selected:</p> 
-        <button type="button" class="btn btn-outline-dark" (click)="continue()">Continue</button>
+      <ngb-alert type="custom" *ngIf="showWarning" [dismissible]="false">You have to select a sound first!</ngb-alert>
+      <button type="button" class="btn btn-primary" (click)="continue()">Continue</button>
     </div>
 </div>
