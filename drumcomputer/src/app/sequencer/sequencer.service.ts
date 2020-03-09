@@ -1,5 +1,7 @@
-import { Injectable } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 import * as Tone from "tone";
+import { LOCAL_STORAGE, StorageService } from 'ngx-webstorage-service';
+
 
 @Injectable({
   providedIn: 'root'
@@ -11,12 +13,21 @@ export class SequencerService {
   volume: number = -6;
   bpm: number = 120;
 
-  sounds: any[] = [];
+  sounds: any[] = []; // Array of sounds the Sequencer plays
+  soundUrls: String[] = []; // Array of URLs to the sounds (needed for saving patterns)
+  types: String[] = []; // Array of Categorys corresponding to the sounds (needed for displaying the correct name in the GUI)
 
-  states: boolean[][] = [];
+  states: boolean[][] = []; // Array of the State of the ButtonGrid of the sounds
 
-  constructor() { 
+  STORAGE_KEY = 'patterns';
+
+  constructor(
+    @Inject(LOCAL_STORAGE) private storage: StorageService,
+  ) { 
     Tone.Master.volume.value = this.volume; // init master Volume
+    if(this.storage.get(this.STORAGE_KEY) == undefined) { // init LocalStorage with emty Array
+      this.storage.set(this.STORAGE_KEY, []);
+    }
   }
 
   switchPlaying() {
@@ -35,19 +46,14 @@ export class SequencerService {
   }
 
   stopPlaying() {
-    this.sequence.stop();
-    Tone.Transport.stop();
-    this.sequenceRunning = false;
-  }
-
-  activateCell(id: number, i: number) {
-    // stop sequence if initialized
-    if (this.sequence!=undefined) {
+    if (this.sequence != undefined) {
       this.sequence.stop();
       Tone.Transport.stop();
       this.sequenceRunning = false;
     }
-    // flip State
+  }
+
+  activateCell(id: number, i: number) {
     this.states[id][i] = !this.states[id][i];
   }
 
@@ -92,5 +98,20 @@ export class SequencerService {
 
   log() {
     console.log(this.states);
+  }
+
+  savePattern(name: String) {
+    let pattern = {
+      name: name,
+      types: this.types,
+      soundUrls: this.soundUrls,
+      states: this.states,
+      //TODO: add more Prameters
+    };
+
+    let patternList = this.storage.get(this.STORAGE_KEY);
+    patternList.push(pattern);
+    this.storage.set(this.STORAGE_KEY, patternList);
+    //console.log(localStorage);
   }
 }

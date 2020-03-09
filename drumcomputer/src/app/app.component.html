@@ -4,15 +4,21 @@
 
 
 <footer class="footer">
-    <button class="btn btn-danger" (click)="reset()">Reset</button>
-    <label for="add"> Add another Sequencer: </label>
-    <button name="add" class="btn btn-secondary" (click)="addSequencer()">+</button>
+
+    <button class="btn btn-reset spacing" (click)="reset()">Reset</button>
+    <button name="add" class="btn btn-add spacing" (click)="addSequencer()">Add Sound</button>
     
-    <button class="btn btn-secondary" (click)="switchPlaying()">Play</button>
+    <button class="btn btn-play spacing" (click)="switchPlaying()">Play</button>
 
-    <label for="bpm"> BPM: </label>
-    <input class="input" type="number" name="bpm" #bpm (keyup)="changeBpm(bpm.value)" value="120">
+    <span class="inputs">
+        <label class="spacing-label" for="bpm"> <strong>BpM:</strong> </label>
+        <input class="input spacing" type="number" name="bpm" #bpm (keyup)="changeBpm(bpm.value)" value="120">
 
-    <label for="volume"> Volume: </label>
-    <input class="input" type="number" name="volume" #volume (keyup)="changeVolume(volume.value)" value="-6">
+        <label class="spacing-label" for="volume"> <strong>Volume:</strong> </label>
+        <input class="input spacing" type="number" name="volume" #volume (keyup)="changeVolume(volume.value)" value="-6">
+    </span>
+
+    <button class="btn btn-save spacing" (click)="savePattern()">Save</button>
+    <button class="btn btn-load spacing" (click)="loadPattern()">Load</button>
+
 </footer>

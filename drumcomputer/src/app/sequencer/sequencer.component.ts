@@ -24,6 +24,13 @@ export class SequencerComponent implements OnInit {
   @Input() parentContainerRef: any;
 
   ngOnInit(): void {
+    /* a botchy fix to update the SequencerGrid Buttons when state Information gets loaded from LocalStorage
+     * directly setting curState = _sequencerService.states[this.id] doesnt work at all, dont really know why */
+    let wtf = this._sequencerService.states[this.id];
+    for(let i in wtf) {
+      if(wtf[i])
+        this.curState[i] = !this.curState[i];
+    }
   }
 
   activateCell(id: number, i: number) {

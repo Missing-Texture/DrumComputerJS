@@ -8,19 +8,27 @@ import { SequencerService } from './sequencer/sequencer.service';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AddSoundModalComponent } from './add-sound-modal/add-sound-modal.component';
 import { AppService } from './app.service';
+import { StorageServiceModule } from 'ngx-webstorage-service';
+import { SavePatternModalComponent } from './save-pattern-modal/save-pattern-modal.component';
+import { LoadPatternModalComponent } from './load-pattern-modal/load-pattern-modal.component';
+import { AddSoundModalService } from './add-sound-modal/add-sound-modal.service';
+
 
 @NgModule({
   declarations: [
     AppComponent,
     SequencerComponent,
-    AddSoundModalComponent
+    AddSoundModalComponent,
+    SavePatternModalComponent,
+    LoadPatternModalComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    NgbModule
+    NgbModule,
+    StorageServiceModule,
   ],
-  providers: [SequencerService, AppService],
+  providers: [SequencerService, AppService, AddSoundModalService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
