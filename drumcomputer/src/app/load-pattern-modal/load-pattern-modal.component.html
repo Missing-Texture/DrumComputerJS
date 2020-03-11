@@ -7,11 +7,33 @@
     </div>
 
     <div class="modal-body">
-        <ngb-alert type="custom" *ngIf="patternList.length === 0" [dismissible]="false">There are no saved Patterns</ngb-alert>
-        <button *ngFor="let pattern of patternList; let i = index" (click)="load(i)" class="btn btn-primary"> {{ pattern.name }}</button>
+        <table class="table">
+            <tbody>
+                <ngb-alert type="custom" *ngIf="patternList.length === 0" [dismissible]="false">There are no saved Patterns</ngb-alert>
+                <tr *ngFor="let pattern of patternList; let i = index">
+                    <td class="name" (click)="load(i)"> {{ pattern.name }} </td>
+                    <td> <button class="close" aria-label="Close" (click)="deleteSingle(warning, i)"> &times; </button> </td>
+                </tr>
+            </tbody>
+        </table>
     </div>
 
     <div class="modal-footer">
-        <button class="btn btn-danger" (click)="delete()">Delete <strong>ALL</strong> Patterns</button>
+        <button class="btn btn-danger" (click)="deleteAll(warning)">Delete <strong>ALL</strong> Patterns</button>
     </div>
 </div>
+
+<ng-template #warning let-modal>
+    <div class="modal-content">
+        <div class="modal-header">
+            <h4 class="modal-title">Are you sure?<br>Deletion of this Pattern is <strong>irreversible!</strong></h4>
+            <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" (click)="modal.close('cancel')">Cancel</button>
+            <button type="button" class="btn btn-danger" (click)="modal.close('delete')">Delete</button>
+        </div>
+    </div>
+</ng-template>

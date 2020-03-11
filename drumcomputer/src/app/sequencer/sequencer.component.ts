@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, ViewChildren, QueryList, ElementRef } from '@angular/core';
 import { SequencerService } from './sequencer.service';
 
 @Component({
@@ -14,7 +14,9 @@ export class SequencerComponent implements OnInit {
     false, false, false, false,
     false, false, false, false];
 
-  curMute:boolean = false;
+  curMute: boolean = false;
+
+  volumes: number[] = [];
 
   constructor(
     private _sequencerService: SequencerService,) { }
@@ -31,6 +33,26 @@ export class SequencerComponent implements OnInit {
       if(wtf[i])
         this.curState[i] = !this.curState[i];
     }
+    this.volumes = this._sequencerService.volumes;
+    
+    /* Mechanism for a moving cursor 
+     *
+    this._sequencerService.highlighted.subscribe((data) => {
+      document.getElementsByName(this.id+"")[data].setAttribute('style', "background-color: #003773;");
+      document.getElementsByName(this.id+"")[this.prevNum(data)].setAttribute('style', "background-color: transparent;");
+      if(this.curState[this.prevNum(data)]) {
+        document.getElementsByName(this.id+"")[this.prevNum(data)].setAttribute('style', "background-color: #007bff;")
+      }
+    })
+    */
+  }
+
+  prevNum(num: number): number {
+    let out = num-1;
+    if(out==-1) {
+      out = 15;
+    }
+    return out;
   }
 
   activateCell(id: number, i: number) {

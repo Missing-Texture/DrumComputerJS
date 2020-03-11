@@ -1,6 +1,7 @@
 import { Inject, Injectable } from '@angular/core';
 import * as Tone from "tone";
 import { LOCAL_STORAGE, StorageService } from 'ngx-webstorage-service';
+import { Subject } from 'rxjs';
 
 
 @Injectable({
@@ -16,8 +17,11 @@ export class SequencerService {
   sounds: any[] = []; // Array of sounds the Sequencer plays
   soundUrls: String[] = []; // Array of URLs to the sounds (needed for saving patterns)
   types: String[] = []; // Array of Categorys corresponding to the sounds (needed for displaying the correct name in the GUI)
+  volumes: number[] = [];
 
   states: boolean[][] = []; // Array of the State of the ButtonGrid of the sounds
+
+  //highlighted: Subject<number> = new Subject<number>();
 
   STORAGE_KEY = 'patterns';
 
@@ -60,6 +64,7 @@ export class SequencerService {
   updateSequencer() {
     let snd = this.sounds; // safe reference to sound for anon function 
     let state = this.states;
+    //let higl = this.highlighted;
 
     this.sequence = new Tone.Sequence(function(time, col){
 
@@ -70,11 +75,13 @@ export class SequencerService {
         }
       }
 
-      /*
+      /* Mechanism for a moving cursor
+       *
       Tone.Draw.schedule(function(){
-
+        higl.next(col);
       }, time);
       */
+      
     }, [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15], "16n");
   }
 
@@ -90,6 +97,7 @@ export class SequencerService {
 
   changeVolumeIndividual(id: number, value: number) {
     this.sounds[id].volume.value = value;
+    this.volumes[id] = value;
   }
 
   changeMuteIndividual(id: number) {
@@ -106,6 +114,7 @@ export class SequencerService {
       types: this.types,
       soundUrls: this.soundUrls,
       states: this.states,
+      volumes: this.volumes,
       //TODO: add more Prameters
     };
 

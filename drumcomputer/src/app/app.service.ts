@@ -43,6 +43,7 @@ export class AppService {
     this._sequencerService.soundUrls = [];
     this._sequencerService.states = [];
     this._sequencerService.types = [];
+    this._sequencerService.volumes = [];
     this._sequencerService.stopPlaying();
     this.idCounter = 0;
     this.selected = null;
@@ -56,7 +57,7 @@ export class AppService {
   }
 
   openLoadModal() {
-    const modalRef = this.modalService.open(LoadPatternModalComponent);
+    const modalRef = this.modalService.open(LoadPatternModalComponent, { scrollable: true });
   }
 
   addSequencer() {
@@ -68,6 +69,7 @@ export class AppService {
     this._sequencerService.sounds.push(this.selected);
     this._sequencerService.soundUrls.push(this.selectedUrl);
     this._sequencerService.types.push(this.type);
+    this._sequencerService.volumes.push(0);
 
     const sequencerFactory: ComponentFactory<any> = this.resolver.resolveComponentFactory(SequencerComponent);
     this.componentRef = this.container.createComponent(sequencerFactory);
@@ -76,11 +78,14 @@ export class AppService {
     this.componentRef.instance.parentContainerRef = this.container;
   }
 
-  addSequencerLite(state: boolean[], url: String, type: String) {
+  addSequencerLite(state: boolean[], url: String, type: String, volume: number) {
     this._sequencerService.states.push(state);
     this._sequencerService.sounds.push( new Tone.Player({ "url": url, "fadeOut" : "64n"}).toMaster(),);
     this._sequencerService.soundUrls.push(url);
     this._sequencerService.types.push(type);
+    this._sequencerService.volumes.push(volume);
+    if(volume!=0) 
+      this._sequencerService.changeVolumeIndividual(this.idCounter, volume)
 
     const sequencerFactory: ComponentFactory<any> = this.resolver.resolveComponentFactory(SequencerComponent);
       this.componentRef = this.container.createComponent(sequencerFactory);
@@ -102,7 +107,7 @@ export class AppService {
     let pattern = this.patternList[i];
     for(let i in pattern.states) {
       if(pattern.states[i] != null) {
-        this.addSequencerLite(pattern.states[i], pattern.soundUrls[i], pattern.types[i]);
+        this.addSequencerLite(pattern.states[i], pattern.soundUrls[i], pattern.types[i], pattern.volumes[i]);
       }
     }
   }
@@ -113,5 +118,10 @@ export class AppService {
     this.selected = null;
     this.selectedUrl = null;
     this.type = null;
+  }
+
+  delete(index: number) {
+    this.patternList.splice(index,1);
+    this.storage.set(this.STORAGE_KEY, this.patternList);
   }
 }

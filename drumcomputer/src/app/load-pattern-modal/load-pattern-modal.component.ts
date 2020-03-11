@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { SequencerService } from '../sequencer/sequencer.service';
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AppService } from '../app.service';
 
 @Component({
@@ -14,6 +14,7 @@ export class LoadPatternModalComponent implements OnInit {
 
   constructor(
     public activeModal: NgbActiveModal,
+    private modalService: NgbModal,
     private _appService: AppService,
   ) {
     this._appService.loadFromStorage();
@@ -32,8 +33,21 @@ export class LoadPatternModalComponent implements OnInit {
     this.activeModal.close('Close click');
   }
 
-  delete() {
-    this._appService.resetLocalStorage();
-    this.updateList();
+  deleteAll(warning) {
+    this.modalService.open(warning, { centered: true }).result.then((result) => {
+      if(result=='delete') {
+        this._appService.resetLocalStorage();
+        this.updateList();
+      }
+    }, (reason) => {});
+  }
+
+  deleteSingle(warning, index: number) {
+    this.modalService.open(warning, { centered: true }).result.then((result) => {
+      if(result=='delete') {
+        this._appService.delete(index);
+        this.updateList();
+      }
+    }, (reason) => {});
   }
 }
