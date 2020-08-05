@@ -29,6 +29,6 @@
     <div class="text-center footer">
         <button class="btn btn-outline-success mute" (click)="mute()" [ngClass]="{'active': curMute}">Mute</button>
         <label for="volume">Volume:</label>
-        <input type="range" min="-12" max="12" value="0" #volume (input)="changeVolume(volume.value)" name="volume">
+        <input type="range" min="-12" max="12" [value]="volumes[id]" #volume (input)="changeVolume(volume.value)" name="volume">
     </div>
 </div>

@@ -1,0 +1,21 @@
+<div class="container">
+    <div class="row">
+        <div class="text-center header col-1">
+            <button type="button" class="close" (click)=removeSpecificComponent()> <span>&times;</span> </button>
+            <h4> {{ type }} {{ id }}</h4>
+        </div>
+
+        <div class="text-center buttonGrid col">
+            <button *ngFor="let s of curState; index as i" 
+                    (click)="activateCell(id,i)" class="btn btn-outline-primary spacing" 
+                    [ngClass]="{'active': curState[i], 'spacing': (i+1)%4==0}" name="{{id}}"> 
+            </button>
+        </div>
+
+        <div class="text-center footer col-3">
+            <button class="btn btn-outline-success mute" (click)="mute()" [ngClass]="{'active': curMute}">Mute</button>
+            <label for="volume">Volume:</label>
+            <input type="range" min="-12" max="12" [value]="volumes[id]" #volume (input)="changeVolume(volume.value)" name="volume">
+        </div>
+    </div>
+</div>

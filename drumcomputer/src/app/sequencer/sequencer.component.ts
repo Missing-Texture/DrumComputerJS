@@ -1,10 +1,13 @@
-import { Component, OnInit, Input, ViewChild, ViewChildren, QueryList, ElementRef } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { SequencerService } from './sequencer.service';
+
+var styleSheet = './linear.sequencer.component.scss';
+var html = './linear.sequencer.component.html';
 
 @Component({
   selector: 'app-sequencer',
-  templateUrl: './sequencer.component.html',
-  styleUrls: ['./sequencer.component.scss']
+  templateUrl: './linear.sequencer.component.html',
+  styleUrls: ['./linear.sequencer.component.scss']
 })
 export class SequencerComponent implements OnInit {
 
@@ -36,7 +39,7 @@ export class SequencerComponent implements OnInit {
     this.volumes = this._sequencerService.volumes;
     
     /* Mechanism for a moving cursor 
-     *
+     */
     this._sequencerService.highlighted.subscribe((data) => {
       document.getElementsByName(this.id+"")[data].setAttribute('style', "background-color: #003773;");
       document.getElementsByName(this.id+"")[this.prevNum(data)].setAttribute('style', "background-color: transparent;");
@@ -44,7 +47,7 @@ export class SequencerComponent implements OnInit {
         document.getElementsByName(this.id+"")[this.prevNum(data)].setAttribute('style', "background-color: #007bff;")
       }
     })
-    */
+    //*/
   }
 
   prevNum(num: number): number {

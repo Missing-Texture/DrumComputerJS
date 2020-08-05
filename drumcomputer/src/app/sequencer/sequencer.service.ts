@@ -21,7 +21,7 @@ export class SequencerService {
 
   states: boolean[][] = []; // Array of the State of the ButtonGrid of the sounds
 
-  //highlighted: Subject<number> = new Subject<number>();
+  highlighted: Subject<number> ;
 
   STORAGE_KEY = 'patterns';
 
@@ -32,6 +32,7 @@ export class SequencerService {
     if(this.storage.get(this.STORAGE_KEY) == undefined) { // init LocalStorage with emty Array
       this.storage.set(this.STORAGE_KEY, []);
     }
+    this.highlighted = new Subject<number>();
   }
 
   switchPlaying() {
@@ -64,7 +65,7 @@ export class SequencerService {
   updateSequencer() {
     let snd = this.sounds; // safe reference to sound for anon function 
     let state = this.states;
-    //let higl = this.highlighted;
+    let higl = this.highlighted;
 
     this.sequence = new Tone.Sequence(function(time, col){
 
@@ -76,11 +77,11 @@ export class SequencerService {
       }
 
       /* Mechanism for a moving cursor
-       *
+       */
       Tone.Draw.schedule(function(){
         higl.next(col);
       }, time);
-      */
+      //*/
       
     }, [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15], "16n");
   }

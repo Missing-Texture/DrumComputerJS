@@ -1,0 +1,58 @@
+.btn {
+    width: 2.5rem;
+    height: 2.5rem;
+    border: 3px solid;
+    margin: 3px;
+}
+
+h4 {
+    font-weight: bold;
+}
+
+.highlighted {
+    border: 5px solid;
+    border-color: green;
+    background-color: green;
+}
+
+.back {
+    width: 70px;
+    height: 70px;
+}
+
+.container {
+    margin: 5px;
+    border: 3px solid;
+    border-color: blueviolet;
+    display: inline-table;
+    border-radius: 5px;
+    max-width: 1300px;
+}
+
+.header {
+    width: auto;
+    margin: 5px;
+}
+
+.buttonGrid {
+    margin: 5px;
+}
+
+.footer {
+    margin: 5px;
+}
+
+.close {
+    color: blueviolet;
+    opacity: .8;
+    text-shadow: none;
+    font-size: 2rem;
+}
+
+.mute {
+    height: 40px;
+}
+
+.spacing {
+    margin-right: 1rem;
+}
